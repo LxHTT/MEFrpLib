@@ -20,7 +20,7 @@ setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        "requests~=2.29.0"
+        "requests>=2.31.0"
     ],
     project_urls={
         'Documentation': 'https://github.com/LxHTT/MEFrpLib/blob/master/README.md',
