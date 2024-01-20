@@ -32,7 +32,7 @@ class JSONRequestModel(object):
         self.model = model
 
     def run(self) -> Union[JSONReturnModel, TextReturnModel]:
-        s = Session(self.bypass_proxy)
+        s = APISession(self.bypass_proxy)
         r = getattr(s, self.method)(url=f"{API_ENDPOINT}{self.path}", json=self.data)
         if isinstance(self.model, TextReturnModel):
             return TextReturnModel(r.text)
@@ -56,7 +56,7 @@ class QueryRequestModel(object):
         self.model = model
 
     def run(self) -> Union[JSONReturnModel, TextReturnModel]:
-        s = Session(self.bypass_proxy)
+        s = APISession(self.bypass_proxy)
         r = getattr(s, self.method)(url=f"{API_ENDPOINT}{self.path}", json=self.data)
         if isinstance(self.model, TextReturnModel):
             return TextReturnModel(r.text)
@@ -74,15 +74,17 @@ class AuthRequestModel(JSONRequestModel):
         model: Union[JSONReturnModel, TextReturnModel] = JSONReturnModel,
         authorization: str = "",
     ):
-        self.data = data
-        self.path = path.lower()
-        self.method = method
-        self.bypass_proxy = bypass_proxy
-        self.model = model
+        super().__init__(
+            data=data,
+            path=path,
+            method=method,
+            bypass_proxy=bypass_proxy,
+            model=model,
+        )
         self.authorization = authorization
 
     def run(self) -> Union[JSONReturnModel, TextReturnModel]:
-        s = Session(self.bypass_proxy)
+        s = APISession(self.bypass_proxy)
         s.headers.update({"Authorization": f"Bearer {self.authorization}"})
         r = getattr(s, self.method)(url=f"{API_ENDPOINT}{self.path}", json=self.data)
         if isinstance(self.model, TextReturnModel):
@@ -91,9 +93,9 @@ class AuthRequestModel(JSONRequestModel):
             return JSONReturnModel(r.json())
 
 
-class Session(Session):
+class APISession(Session):
     def __init__(self, BYPASS_SYSTEM_PROXY=False):
         super().__init__()
         #: Trust environment settings for proxy configuration, default
         #: authentication and similar.
-        self.trust_env = BYPASS_SYSTEM_PROXY
+        self.trust_env = not BYPASS_SYSTEM_PROXY
