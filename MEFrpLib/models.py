@@ -32,7 +32,7 @@ class BaseRequestModel(object):
 
     def run(self) -> Union[JSONReturnModel, TextReturnModel]:
         s = APISession(BYPASS_SYSTEM_PROXY=self.bypass_proxy)
-        r = getattr(s, self.method.lower())(url=self.url, json=self.data)
+        r = getattr(s, self.method.lower())(url=self.url, data=self.data)
         if isinstance(self.model, TextReturnModel):
             return TextReturnModel(r.text)
         else:
@@ -61,7 +61,7 @@ class AuthRequestModel(BaseRequestModel):
     def run(self) -> Union[JSONReturnModel, TextReturnModel]:
         s = APISession(BYPASS_SYSTEM_PROXY=self.bypass_proxy)
         s.headers.update({"Authorization": f"Bearer {self.authorization}"})
-        r = getattr(s, self.method.lower())(url=self.url, json=self.data)
+        r = getattr(s, self.method.lower())(url=self.url, data=self.data)
         if isinstance(self.model, TextReturnModel):
             return TextReturnModel(r.text)
         else:
