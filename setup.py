@@ -5,7 +5,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
     name="MEFrpLib",
-    version="2.0.0",
+    version="2.0.1",
     author="LxHTT",
     author_email="lxhtt@vip.qq.com",
     long_description=long_description,
