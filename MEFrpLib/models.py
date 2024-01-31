@@ -1,7 +1,6 @@
+from enum import Enum
 from typing import Union, Dict, List
 from requests import Session
-
-API_ENDPOINT = "https://api.mefrp.com"
 
 
 class JSONReturnModel(object):
@@ -16,59 +15,35 @@ class TextReturnModel(object):
         self.data: str = data
 
 
-class JSONRequestModel(object):
+class BaseRequestModel(object):
     def __init__(
         self,
         data: Union[Dict, List],
-        path: str,
+        url: str,
         method: str,  # get post...
         bypass_proxy: bool = False,
         model: Union[JSONReturnModel, TextReturnModel] = JSONReturnModel,
     ):
         self.data = data
-        self.path = path.lower()
+        self.url = url.lower()
         self.method = method
         self.bypass_proxy = bypass_proxy
         self.model = model
 
     def run(self) -> Union[JSONReturnModel, TextReturnModel]:
-        s = APISession(self.bypass_proxy)
-        r = getattr(s, self.method)(url=f"{API_ENDPOINT}{self.path}", json=self.data)
+        s = APISession(BYPASS_SYSTEM_PROXY=self.bypass_proxy)
+        r = getattr(s, self.method.lower())(url=self.url, json=self.data)
         if isinstance(self.model, TextReturnModel):
             return TextReturnModel(r.text)
         else:
             return JSONReturnModel(r.json())
 
 
-class QueryRequestModel(object):
+class AuthRequestModel(BaseRequestModel):
     def __init__(
         self,
         data: Union[Dict, List],
-        path: str,
-        method: str,  # get post...
-        bypass_proxy: bool = False,
-        model: Union[JSONReturnModel, TextReturnModel] = JSONReturnModel,
-    ):
-        self.data = data
-        self.path = path.lower()
-        self.method = method
-        self.bypass_proxy = bypass_proxy
-        self.model = model
-
-    def run(self) -> Union[JSONReturnModel, TextReturnModel]:
-        s = APISession(self.bypass_proxy)
-        r = getattr(s, self.method)(url=f"{API_ENDPOINT}{self.path}", json=self.data)
-        if isinstance(self.model, TextReturnModel):
-            return TextReturnModel(r.text)
-        else:
-            return JSONReturnModel(r.json())
-
-
-class AuthRequestModel(JSONRequestModel):
-    def __init__(
-        self,
-        data: Union[Dict, List],
-        path: str,
+        url: str,
         method: str,  # get post...
         bypass_proxy: bool = False,
         model: Union[JSONReturnModel, TextReturnModel] = JSONReturnModel,
@@ -76,7 +51,7 @@ class AuthRequestModel(JSONRequestModel):
     ):
         super().__init__(
             data=data,
-            path=path,
+            url=url,
             method=method,
             bypass_proxy=bypass_proxy,
             model=model,
@@ -84,9 +59,9 @@ class AuthRequestModel(JSONRequestModel):
         self.authorization = authorization
 
     def run(self) -> Union[JSONReturnModel, TextReturnModel]:
-        s = APISession(self.bypass_proxy)
+        s = APISession(BYPASS_SYSTEM_PROXY=self.bypass_proxy)
         s.headers.update({"Authorization": f"Bearer {self.authorization}"})
-        r = getattr(s, self.method)(url=f"{API_ENDPOINT}{self.path}", json=self.data)
+        r = getattr(s, self.method.lower())(url=self.url, json=self.data)
         if isinstance(self.model, TextReturnModel):
             return TextReturnModel(r.text)
         else:
@@ -99,3 +74,40 @@ class APISession(Session):
         #: Trust environment settings for proxy configuration, default
         #: authentication and similar.
         self.trust_env = not BYPASS_SYSTEM_PROXY
+
+
+class RouterBase(Enum):
+    def apiPath(self):
+        return f"{APIRouter.base}{self.__path__}{self.value}"
+
+
+class APIRouter:
+    base = "https://api.mefrp.com"
+
+    class PublicRouter(RouterBase):
+        __path__ = "/api/v4/public"
+        login = "/verify/login"
+        sponsor = "/info/sponsor"
+        statistics = "/info/statistics"
+        register = "/verify/register"
+        register_email = "/verify/register_email"
+        forgot_password = "/verify/forgot_password"
+        # reset_password = "/verify/reset_password{link}"
+        setting = "/info/setting"
+
+    class AuthRouter(RouterBase):
+        __path__ = "/api/v4/auth"
+        user_info = "/user"
+        user_sign = "/user/sign"
+        # user_sign = "/user/sign"
+        refresh_token = "/user/refresh_token"
+        realname_get = "/user/realname_get"
+        realname_post = "/user/realname_post"
+        tunnel_list = "/tunnel/list"
+        tunnel_conf_node = "/tunnel/conf/node/{node}"
+        tunnel_conf_id = "/tunnel/conf/id/{id}"
+        tunnel_create = "/tunnel/create"
+        tunnel_delete = "/tunnel/delete/{tunnel_id}"
+        tunnel_info = "/tunnel/info/{tunnel_id}"
+        node_list = "/node/list"
+        # reset_password = "/user/reset_password"
