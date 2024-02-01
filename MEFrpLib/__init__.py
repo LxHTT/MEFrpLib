@@ -6,6 +6,7 @@ Copyright (c) 2024 LxHTT
 """
 from .auth import (
     me_get_user_info,  # noqa
+    me_user_get_sign_info,  # noqa
     me_user_sign,  # noqa
     me_refresh_user_token,  # noqa
     me_get_realname_status,  # noqa
@@ -28,4 +29,4 @@ from .public import (
     me_get_setting,  # noqa
 )
 
-__version__ = "2.0.2"
+__version__ = "2.0.3"
