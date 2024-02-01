@@ -5,8 +5,17 @@ AuthRouter = APIRouter.AuthRouter
 
 def me_get_user_info(authorization: str, bypass_proxy: bool = False) -> JSONReturnModel:
     return AuthRequestModel(
-        data={},
         url=AuthRouter.user_info.apiPath(),
+        method="GET",
+        bypass_proxy=bypass_proxy,
+        model=JSONReturnModel,
+        authorization=authorization,
+    ).run()
+
+
+def me_user_get_sign_info(authorization: str, bypass_proxy: bool = False) -> JSONReturnModel:
+    return AuthRequestModel(
+        url=AuthRouter.user_sign.apiPath(),
         method="GET",
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
@@ -16,9 +25,8 @@ def me_get_user_info(authorization: str, bypass_proxy: bool = False) -> JSONRetu
 
 def me_user_sign(authorization: str, bypass_proxy: bool = False) -> JSONReturnModel:
     return AuthRequestModel(
-        data={},
         url=AuthRouter.user_sign.apiPath(),
-        method="GET",
+        method="POST",
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
@@ -29,7 +37,6 @@ def me_refresh_user_token(
     authorization: str, bypass_proxy: bool = False
 ) -> JSONReturnModel:
     return AuthRequestModel(
-        data={},
         url=AuthRouter.refresh_token.apiPath(),
         method="POST",
         bypass_proxy=bypass_proxy,
@@ -42,7 +49,6 @@ def me_get_realname_status(
     authorization: str, bypass_proxy: bool = False
 ) -> JSONReturnModel:
     return AuthRequestModel(
-        data={},
         url=AuthRouter.realname_get.apiPath(),
         method="GET",
         bypass_proxy=bypass_proxy,
@@ -64,9 +70,10 @@ def me_post_realname(
     ).run()
 
 
-def me_get_tunnel_list(authorization: str, bypass_proxy: bool = False) -> JSONReturnModel:
+def me_get_tunnel_list(
+    authorization: str, bypass_proxy: bool = False
+) -> JSONReturnModel:
     return AuthRequestModel(
-        data={},
         url=AuthRouter.tunnel_list.apiPath(),
         method="GET",
         bypass_proxy=bypass_proxy,
@@ -79,7 +86,6 @@ def me_get_tunnel_config_node(
     authorization: str, node: int, bypass_proxy: bool = False
 ) -> JSONReturnModel:
     return AuthRequestModel(
-        data={},
         url=AuthRouter.tunnel_conf_node.apiPath().format(node),
         method="GET",
         bypass_proxy=bypass_proxy,
@@ -92,7 +98,6 @@ def me_get_tunnel_config_id(
     authorization: str, id: int, bypass_proxy: bool = False
 ) -> JSONReturnModel:
     return AuthRequestModel(
-        data={},
         url=AuthRouter.tunnel_conf_id.apiPath().format(id),
         method="GET",
         bypass_proxy=bypass_proxy,
@@ -132,7 +137,6 @@ def me_delete_tunnel(
     authorization: str, tunnel_id: int, bypass_proxy: bool = False
 ) -> JSONReturnModel:
     return AuthRequestModel(
-        data={},
         url=AuthRouter.tunnel_delete.apiPath().format(tunnel_id),
         method="POST",
         bypass_proxy=bypass_proxy,
@@ -145,7 +149,6 @@ def me_get_tunnel_info(
     authorization: str, tunnel_id: int, bypass_proxy: bool = False
 ) -> JSONReturnModel:
     return AuthRequestModel(
-        data={},
         url=AuthRouter.tunnel_info.apiPath().format(tunnel_id),
         method="GET",
         bypass_proxy=bypass_proxy,
@@ -156,7 +159,6 @@ def me_get_tunnel_info(
 
 def me_node_list(authorization: str, bypass_proxy: bool = False) -> JSONReturnModel:
     return AuthRequestModel(
-        data={},
         url=AuthRouter.node_list.apiPath(),
         method="GET",
         bypass_proxy=bypass_proxy,

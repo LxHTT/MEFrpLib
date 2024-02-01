@@ -42,7 +42,6 @@ class BaseRequestModel(object):
 class AuthRequestModel(BaseRequestModel):
     def __init__(
         self,
-        data: Union[Dict, List],
         url: str,
         method: str,  # get post...
         bypass_proxy: bool = False,
@@ -50,7 +49,7 @@ class AuthRequestModel(BaseRequestModel):
         authorization: str = "",
     ):
         super().__init__(
-            data=data,
+            data={},
             url=url,
             method=method,
             bypass_proxy=bypass_proxy,
