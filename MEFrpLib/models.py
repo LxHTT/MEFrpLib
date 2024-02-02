@@ -56,6 +56,7 @@ class AuthRequestModel(BaseRequestModel):
             bypass_proxy=bypass_proxy,
             model=model,
         )
+        print(url)
         self.authorization = authorization
 
     def run(self) -> Union[JSONReturnModel, TextReturnModel]:
@@ -109,6 +110,6 @@ class APIRouter:
         tunnel_create = "/tunnel/create"
         tunnel_delete = "/tunnel/delete/{tunnel_id}"
         tunnel_info = "/tunnel/info/{tunnel_id}"
-        get_free_port = "/tunnel/get_free_port"
-        node_list = "/node/list?node={id}&protocol={protocol}"
+        get_free_port = "/tunnel/get_free_port?node={id}&protocol={protocol}"
+        node_list = "/node/list"
         # reset_password = "/user/reset_password"
