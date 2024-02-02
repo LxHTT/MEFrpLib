@@ -173,7 +173,7 @@ def me_get_free_port(
     authorization: str, id: int, protocol: str, bypass_proxy: bool = False
 ) -> JSONReturnModel:
     return AuthRequestModel(
-        url=AuthRouter.node_list.apiPath().format(id=id, protocol=protocol),
+        url=AuthRouter.get_free_port.apiPath().format(id=id, protocol=protocol),
         method="GET",
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
