@@ -18,6 +18,7 @@ from .auth import (
     me_delete_tunnel,  # noqa
     me_get_tunnel_info,  # noqa
     me_node_list,  # noqa
+    me_get_free_port,  # noqa
 )
 from .public import (
     me_login,  # noqa
@@ -29,4 +30,4 @@ from .public import (
     me_get_setting,  # noqa
 )
 
-__version__ = "2.0.3"
+__version__ = "2.0.4"

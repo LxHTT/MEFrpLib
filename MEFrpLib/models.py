@@ -18,9 +18,9 @@ class TextReturnModel(object):
 class BaseRequestModel(object):
     def __init__(
         self,
-        data: Union[Dict, List],
-        url: str,
-        method: str,  # get post...
+        data: Union[Dict, List] = {},
+        url: str = "",
+        method: str = "",  # get, post...
         bypass_proxy: bool = False,
         model: Union[JSONReturnModel, TextReturnModel] = JSONReturnModel,
     ):
@@ -42,14 +42,15 @@ class BaseRequestModel(object):
 class AuthRequestModel(BaseRequestModel):
     def __init__(
         self,
-        url: str,
-        method: str,  # get post...
+        data: Union[Dict, List] = {},
+        url: str = "",
+        method: str = "",  # get, post...
         bypass_proxy: bool = False,
         model: Union[JSONReturnModel, TextReturnModel] = JSONReturnModel,
         authorization: str = "",
     ):
         super().__init__(
-            data={},
+            data=data,
             url=url,
             method=method,
             bypass_proxy=bypass_proxy,
@@ -108,5 +109,6 @@ class APIRouter:
         tunnel_create = "/tunnel/create"
         tunnel_delete = "/tunnel/delete/{tunnel_id}"
         tunnel_info = "/tunnel/info/{tunnel_id}"
-        node_list = "/node/list"
+        get_free_port = "/tunnel/get_free_port"
+        node_list = "/node/list?node={id}&protocol={protocol}"
         # reset_password = "/user/reset_password"

@@ -13,7 +13,9 @@ def me_get_user_info(authorization: str, bypass_proxy: bool = False) -> JSONRetu
     ).run()
 
 
-def me_user_get_sign_info(authorization: str, bypass_proxy: bool = False) -> JSONReturnModel:
+def me_user_get_sign_info(
+    authorization: str, bypass_proxy: bool = False
+) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.user_sign.apiPath(),
         method="GET",
@@ -160,6 +162,18 @@ def me_get_tunnel_info(
 def me_node_list(authorization: str, bypass_proxy: bool = False) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.node_list.apiPath(),
+        method="GET",
+        bypass_proxy=bypass_proxy,
+        model=JSONReturnModel,
+        authorization=authorization,
+    ).run()
+
+
+def me_get_free_port(
+    authorization: str, id: int, protocol: str, bypass_proxy: bool = False
+) -> JSONReturnModel:
+    return AuthRequestModel(
+        url=AuthRouter.node_list.apiPath().format(id=id, protocol=protocol),
         method="GET",
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
