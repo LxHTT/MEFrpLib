@@ -56,7 +56,6 @@ class AuthRequestModel(BaseRequestModel):
             bypass_proxy=bypass_proxy,
             model=model,
         )
-        print(url)
         self.authorization = authorization
 
     def run(self) -> Union[JSONReturnModel, TextReturnModel]:
