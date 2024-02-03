@@ -3,18 +3,25 @@ from .models import JSONReturnModel, AuthRequestModel, TextReturnModel, APIRoute
 AuthRouter = APIRouter.AuthRouter
 
 
-def me_get_user_info(authorization: str, bypass_proxy: bool = False) -> JSONReturnModel:
+def me_get_user_info(
+    authorization: str,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
+) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.user_info.apiPath(),
         method="GET",
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
 def me_user_get_sign_info(
-    authorization: str, bypass_proxy: bool = False
+    authorization: str,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.user_sign.apiPath(),
@@ -22,21 +29,29 @@ def me_user_get_sign_info(
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
-def me_user_sign(authorization: str, bypass_proxy: bool = False) -> JSONReturnModel:
+def me_user_sign(
+    authorization: str,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
+) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.user_sign.apiPath(),
         method="POST",
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
 def me_refresh_user_token(
-    authorization: str, bypass_proxy: bool = False
+    authorization: str,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.refresh_token.apiPath(),
@@ -44,11 +59,14 @@ def me_refresh_user_token(
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
 def me_get_realname_status(
-    authorization: str, bypass_proxy: bool = False
+    authorization: str,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.realname_get.apiPath(),
@@ -56,11 +74,16 @@ def me_get_realname_status(
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
 def me_post_realname(
-    authorization: str, idcard: str, name: str, bypass_proxy: bool = False
+    authorization: str,
+    idcard: str,
+    name: str,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
         data={"idcard": idcard, "name": name},
@@ -69,11 +92,14 @@ def me_post_realname(
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
 def me_get_tunnel_list(
-    authorization: str, bypass_proxy: bool = False
+    authorization: str,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.tunnel_list.apiPath(),
@@ -81,11 +107,15 @@ def me_get_tunnel_list(
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
 def me_get_tunnel_config_node(
-    authorization: str, node: int, bypass_proxy: bool = False
+    authorization: str,
+    node: int,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.tunnel_conf_node.apiPath().format(node),
@@ -93,11 +123,15 @@ def me_get_tunnel_config_node(
         bypass_proxy=bypass_proxy,
         model=TextReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
 def me_get_tunnel_config_id(
-    authorization: str, id: int, bypass_proxy: bool = False
+    authorization: str,
+    id: int,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.tunnel_conf_id.apiPath().format(id),
@@ -105,6 +139,7 @@ def me_get_tunnel_config_id(
         bypass_proxy=bypass_proxy,
         model=TextReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
@@ -117,6 +152,7 @@ def me_create_tunnel(
     remote_port: int,
     proxy_name: str,
     bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
         data={
@@ -132,11 +168,15 @@ def me_create_tunnel(
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
 def me_delete_tunnel(
-    authorization: str, tunnel_id: int, bypass_proxy: bool = False
+    authorization: str,
+    tunnel_id: int,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.tunnel_delete.apiPath().format(tunnel_id),
@@ -144,11 +184,15 @@ def me_delete_tunnel(
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
 def me_get_tunnel_info(
-    authorization: str, tunnel_id: int, bypass_proxy: bool = False
+    authorization: str,
+    tunnel_id: int,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.tunnel_info.apiPath().format(tunnel_id),
@@ -156,21 +200,31 @@ def me_get_tunnel_info(
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
-def me_node_list(authorization: str, bypass_proxy: bool = False) -> JSONReturnModel:
+def me_node_list(
+    authorization: str,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
+) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.node_list.apiPath(),
         method="GET",
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
+        ua=ua,
     ).run()
 
 
 def me_get_free_port(
-    authorization: str, id: int, protocol: str, bypass_proxy: bool = False
+    authorization: str,
+    id: int,
+    protocol: str,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
         url=AuthRouter.get_free_port.apiPath().format(id=id, protocol=protocol),
@@ -178,4 +232,23 @@ def me_get_free_port(
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
+        ua=ua,
+    ).run()
+
+
+def me_reset_password(
+    authorization: str,
+    old_password: str,
+    password: str,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
+) -> JSONReturnModel:
+    return AuthRequestModel(
+        data={"oldpassword": old_password, "password": password},
+        url=AuthRouter.reset_password.apiPath(),
+        method="POST",
+        bypass_proxy=bypass_proxy,
+        model=JSONReturnModel,
+        authorization=authorization,
+        ua=ua,
     ).run()

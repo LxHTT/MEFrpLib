@@ -19,6 +19,7 @@ from .auth import (
     me_get_tunnel_info,  # noqa
     me_node_list,  # noqa
     me_get_free_port,  # noqa
+    me_reset_password,  # noqa
 )
 from .public import (
     me_login,  # noqa

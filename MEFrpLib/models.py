@@ -23,12 +23,14 @@ class BaseRequestModel(object):
         method: str = "",  # get, post...
         bypass_proxy: bool = False,
         model: Union[JSONReturnModel, TextReturnModel] = JSONReturnModel,
+        ua: str = "MEFrpLib/Not Modified Version",
     ):
         self.data = data
         self.url = url.lower()
         self.method = method
         self.bypass_proxy = bypass_proxy
         self.model = model
+        self.ua = f"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0 {ua}"
 
     def run(self) -> Union[JSONReturnModel, TextReturnModel]:
         s = APISession(BYPASS_SYSTEM_PROXY=self.bypass_proxy)
@@ -48,6 +50,7 @@ class AuthRequestModel(BaseRequestModel):
         bypass_proxy: bool = False,
         model: Union[JSONReturnModel, TextReturnModel] = JSONReturnModel,
         authorization: str = "",
+        ua: str = "MEFrpLib/Not Modified Version",
     ):
         super().__init__(
             data=data,
@@ -55,6 +58,7 @@ class AuthRequestModel(BaseRequestModel):
             method=method,
             bypass_proxy=bypass_proxy,
             model=model,
+            ua=ua,
         )
         self.authorization = authorization
 
@@ -111,4 +115,4 @@ class APIRouter:
         tunnel_info = "/tunnel/info/{tunnel_id}"
         get_free_port = "/tunnel/get_free_port?node={id}&protocol={protocol}"
         node_list = "/node/list"
-        # reset_password = "/user/reset_password"
+        reset_password = "/user/reset_password"
