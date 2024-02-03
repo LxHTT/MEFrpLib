@@ -77,7 +77,7 @@ class APISession(Session):
         super().__init__()
         #: Trust environment settings for proxy configuration, default
         #: authentication and similar.
-        self.trust_env = not BYPASS_SYSTEM_PROXY
+        self.trust_env = (not BYPASS_SYSTEM_PROXY)
 
 
 class RouterBase(Enum):
