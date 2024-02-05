@@ -190,6 +190,32 @@ def me_create_tunnel(
             ua=ua,
         ).run()
 
+
+def me_edit_tunnel(
+    authorization: str,
+    tunnel_id: int,
+    tunnel_name: str,
+    local_port: int,
+    local_ip: str,
+    bypass_proxy: bool = False,
+    ua: str = "MEFrpLib/Not Modified Version",
+):
+    return AuthRequestModel(
+        data={
+            "tunnel_id": tunnel_id,
+            "tunnel_name": tunnel_name,
+            "local_port": local_port,
+            "local_ip": local_ip,
+        },
+        url=AuthRouter.edit_tunnel.apiPath(),
+        method="POST",
+        bypass_proxy=bypass_proxy,
+        model=JSONReturnModel,
+        authorization=authorization,
+        ua=ua,
+    )
+
+
 def me_close_tunnel(
     authorization: str,
     tunnel_id: int,
@@ -204,7 +230,8 @@ def me_close_tunnel(
         model=JSONReturnModel,
         authorization=authorization,
         ua=ua,
-        )
+    )
+
 
 def me_delete_tunnel(
     authorization: str,

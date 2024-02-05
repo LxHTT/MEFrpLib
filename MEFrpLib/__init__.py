@@ -15,6 +15,7 @@ from .auth import (
     me_get_tunnel_config_node,  # noqa
     me_get_tunnel_config_id,  # noqa
     me_create_tunnel,  # noqa
+    me_edit_tunnel,  # noqa
     me_close_tunnel,  # noqa
     me_delete_tunnel,  # noqa
     me_get_tunnel_info,  # noqa
