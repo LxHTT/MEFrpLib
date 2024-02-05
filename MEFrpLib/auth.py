@@ -152,25 +152,60 @@ def me_create_tunnel(
     remote_port: int,
     proxy_name: str,
     bypass_proxy: bool = False,
+    domain: str = "",
+    ua: str = "MEFrpLib/Not Modified Version",
+) -> JSONReturnModel:
+    if "http" not in proxy_type:
+        return AuthRequestModel(
+            data={
+                "node": node,
+                "proxy_type": proxy_type,
+                "local_ip": local_ip,
+                "local_port": local_port,
+                "remote_port": remote_port,
+                "proxy_name": proxy_name,
+            },
+            url=AuthRouter.tunnel_create.apiPath(),
+            method="POST",
+            bypass_proxy=bypass_proxy,
+            model=JSONReturnModel,
+            authorization=authorization,
+            ua=ua,
+        ).run()
+    else:
+        return AuthRequestModel(
+            data={
+                "node": node,
+                "proxy_type": proxy_type,
+                "local_ip": local_ip,
+                "local_port": local_port,
+                "remote_port": remote_port,
+                "proxy_name": proxy_name,
+                "domain": domain,
+            },
+            url=AuthRouter.tunnel_create.apiPath(),
+            method="POST",
+            bypass_proxy=bypass_proxy,
+            model=JSONReturnModel,
+            authorization=authorization,
+            ua=ua,
+        ).run()
+
+def me_close_tunnel(
+    authorization: str,
+    tunnel_id: int,
+    bypass_proxy: bool = False,
     ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
-        data={
-            "node": node,
-            "proxy_type": proxy_type,
-            "local_ip": local_ip,
-            "local_port": local_port,
-            "remote_port": remote_port,
-            "proxy_name": proxy_name,
-        },
-        url=AuthRouter.tunnel_create.apiPath(),
+        data={},
+        url=AuthRouter.tunnel_close.apiPath().format(tunnel_id),
         method="POST",
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
         authorization=authorization,
         ua=ua,
-    ).run()
-
+        )
 
 def me_delete_tunnel(
     authorization: str,

@@ -111,6 +111,7 @@ class APIRouter:
         tunnel_conf_node = "/tunnel/conf/node/{node}"
         tunnel_conf_id = "/tunnel/conf/id/{id}"
         tunnel_create = "/tunnel/create"
+        tunnel_close = "/tunnel/close_tunnel/{tunnel_id}"
         tunnel_delete = "/tunnel/delete/{tunnel_id}"
         tunnel_info = "/tunnel/info/{tunnel_id}"
         get_free_port = "/tunnel/get_free_port?node={id}&protocol={protocol}"
