@@ -32,4 +32,4 @@ from .public import (
     me_get_setting,  # noqa
 )
 
-__version__ = "2.2.1"
+__version__ = "2.2.2"

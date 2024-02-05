@@ -179,7 +179,6 @@ def me_create_tunnel(
                 "proxy_type": proxy_type,
                 "local_ip": local_ip,
                 "local_port": local_port,
-                "remote_port": remote_port,
                 "proxy_name": proxy_name,
                 "domain": domain,
             },
