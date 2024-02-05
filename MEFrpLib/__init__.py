@@ -15,6 +15,7 @@ from .auth import (
     me_get_tunnel_config_node,  # noqa
     me_get_tunnel_config_id,  # noqa
     me_create_tunnel,  # noqa
+    me_close_tunnel,  # noqa
     me_delete_tunnel,  # noqa
     me_get_tunnel_info,  # noqa
     me_node_list,  # noqa
@@ -31,4 +32,4 @@ from .public import (
     me_get_setting,  # noqa
 )
 
-__version__ = "2.2.0"
+__version__ = "2.2.1"
