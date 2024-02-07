@@ -213,7 +213,7 @@ def me_edit_tunnel(
         model=JSONReturnModel,
         authorization=authorization,
         ua=ua,
-    )
+    ).run()
 
 
 def me_close_tunnel(
@@ -230,7 +230,7 @@ def me_close_tunnel(
         model=JSONReturnModel,
         authorization=authorization,
         ua=ua,
-    )
+    ).run()
 
 
 def me_delete_tunnel(
