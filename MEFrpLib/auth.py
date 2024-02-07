@@ -224,7 +224,7 @@ def me_close_tunnel(
 ) -> JSONReturnModel:
     return AuthRequestModel(
         data={},
-        url=AuthRouter.tunnel_close.apiPath().format(tunnel_id),
+        url=AuthRouter.tunnel_close.apiPath().format(tunnel_id=tunnel_id),
         method="POST",
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
@@ -240,7 +240,7 @@ def me_delete_tunnel(
     ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
-        url=AuthRouter.tunnel_delete.apiPath().format(tunnel_id),
+        url=AuthRouter.tunnel_delete.apiPath().format(tunnel_id=tunnel_id),
         method="POST",
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
@@ -256,7 +256,7 @@ def me_get_tunnel_info(
     ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
-        url=AuthRouter.tunnel_info.apiPath().format(tunnel_id),
+        url=AuthRouter.tunnel_info.apiPath().format(tunnel_id=tunnel_id),
         method="GET",
         bypass_proxy=bypass_proxy,
         model=JSONReturnModel,
