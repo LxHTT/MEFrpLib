@@ -132,9 +132,9 @@ def me_get_tunnel_config_id(
     id: int,
     bypass_proxy: bool = False,
     ua: str = "MEFrpLib/Not Modified Version",
-) -> JSONReturnModel:
+) -> TextReturnModel:
     return AuthRequestModel(
-        url=AuthRouter.tunnel_conf_id.apiPath().format(id),
+        url=AuthRouter.tunnel_conf_id.apiPath().format(id=id),
         method="GET",
         bypass_proxy=bypass_proxy,
         model=TextReturnModel,

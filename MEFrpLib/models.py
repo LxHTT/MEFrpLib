@@ -22,7 +22,7 @@ class BaseRequestModel(object):
         url: str = "",
         method: str = "",  # get, post...
         bypass_proxy: bool = False,
-        model: Union[JSONReturnModel, TextReturnModel] = JSONReturnModel,
+        model: Union[JSONReturnModel, TextReturnModel] = None,
         ua: str = "MEFrpLib/Not Modified Version",
     ):
         self.data = data
@@ -35,7 +35,7 @@ class BaseRequestModel(object):
     def run(self) -> Union[JSONReturnModel, TextReturnModel]:
         s = APISession(BYPASS_SYSTEM_PROXY=self.bypass_proxy)
         r = getattr(s, self.method.lower())(url=self.url, data=self.data)
-        if isinstance(self.model, TextReturnModel):
+        if self.model == TextReturnModel:
             return TextReturnModel(r.text)
         else:
             return JSONReturnModel(r.json())
@@ -48,7 +48,7 @@ class AuthRequestModel(BaseRequestModel):
         url: str = "",
         method: str = "",  # get, post...
         bypass_proxy: bool = False,
-        model: Union[JSONReturnModel, TextReturnModel] = JSONReturnModel,
+        model: Union[JSONReturnModel, TextReturnModel] = None,
         authorization: str = "",
         ua: str = "MEFrpLib/Not Modified Version",
     ):
@@ -66,7 +66,7 @@ class AuthRequestModel(BaseRequestModel):
         s = APISession(BYPASS_SYSTEM_PROXY=self.bypass_proxy)
         s.headers.update({"Authorization": f"Bearer {self.authorization}"})
         r = getattr(s, self.method.lower())(url=self.url, data=self.data)
-        if isinstance(self.model, TextReturnModel):
+        if self.model == TextReturnModel:
             return TextReturnModel(r.text)
         else:
             return JSONReturnModel(r.json())
