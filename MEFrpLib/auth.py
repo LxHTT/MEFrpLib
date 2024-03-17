@@ -305,7 +305,7 @@ def me_reset_password(
     ua: str = "MEFrpLib/Not Modified Version",
 ) -> JSONReturnModel:
     return AuthRequestModel(
-        data={"oldpassword": old_password, "password": password},
+        data={"old_password": old_password, "password": password},
         url=AuthRouter.reset_password.apiPath(),
         method="POST",
         bypass_proxy=bypass_proxy,
